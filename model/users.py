@@ -14,26 +14,26 @@ from werkzeug.security import generate_password_hash, check_password_hash
 ''' Tutorial: https://www.sqlalchemy.org/library.html#tutorials, try to get into Python shell and follow along '''
 
 # Define the Post class to manage actions in 'posts' table,  with a relationship to 'users' table
-class Post(db.Model):
-    __tablename__ = 'posts'
+class Task(db.Model):
+    __tablename__ = 'tasks'
 
     # Define the Notes schema
     id = db.Column(db.Integer, primary_key=True)
-    note = db.Column(db.Text, unique=False, nullable=False)
-    image = db.Column(db.String, unique=False)
+    task = db.Column(db.Text, unique=False, nullable=False)
+    duedate = db.Column(db.Date, unique=False)
     # Define a relationship in Notes Schema to userID who originates the note, many-to-one (many notes to one user)
     userID = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     # Constructor of a Notes object, initializes of instance variables within object
-    def __init__(self, id, note, image):
+    def __init__(self, id, task, duedate):
         self.userID = id
-        self.note = note
-        self.image = image
+        self.task = task
+        self.duedate = duedate
 
     # Returns a string representation of the Notes object, similar to java toString()
     # returns string
     def __repr__(self):
-        return "Notes(" + str(self.id) + "," + self.note + "," + str(self.userID) + ")"
+        return "Notes(" + str(self.id) + "," + self.task + "," + str(self.userID) + ")"
 
     # CRUD create, adds a new record to the Notes table
     # returns the object added or None in case of an error
@@ -52,7 +52,7 @@ class Post(db.Model):
     def read(self):
         # encode image
         path = app.config['UPLOAD_FOLDER']
-        file = os.path.join(path, self.image)
+        file = os.path.join(path, self.duedate)
         file_text = open(file, 'rb')
         file_read = file_text.read()
         file_encode = base64.encodebytes(file_read)
@@ -60,8 +60,8 @@ class Post(db.Model):
         return {
             "id": self.id,
             "userID": self.userID,
-            "note": self.note,
-            "image": self.image,
+            "task": self.task,
+            "duedate": self.duedate,
             "base64": str(file_encode)
         }
 

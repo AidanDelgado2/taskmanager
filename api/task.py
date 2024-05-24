@@ -1,7 +1,12 @@
 # app.py
-
+from flask import Blueprint, request, jsonify, current_app, Response, g
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+
+from model.tasks import task
+task_api = Blueprint('task_api', __name__,
+                   url_prefix='/api/tasks')
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'

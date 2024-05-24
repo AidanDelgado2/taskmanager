@@ -30,6 +30,7 @@ app.register_blueprint(covid_api)
 app.register_blueprint(user_api) 
 app.register_blueprint(player_api)
 app.register_blueprint(titanic_api)
+app.register_blueprint(task_api)
 # register URIs for server pages
 app.register_blueprint(algorithm_views) 
 app.register_blueprint(recipe_views) 
@@ -86,6 +87,8 @@ def generate_data():
     initUsers()
     initPlayers()
     initTitanic()
+    initTask()
+    # Call task init function
 
 # Register the custom command group with the Flask application
 app.cli.add_command(custom_cli)
