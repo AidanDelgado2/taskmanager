@@ -12,8 +12,10 @@ from api.joke import joke_api
 from api.user import user_api 
 from api.player import player_api
 from api.titanic import titanic_api
+from api.task import task_api
 # database Initialization functions
-from model.users import User, initUsers 
+from model.users import User
+from model.users import Post, initUsers
 from model.players import initPlayers
 from model.titanicML import initTitanic
 # server only Views
@@ -87,7 +89,6 @@ def generate_data():
     initUsers()
     initPlayers()
     initTitanic()
-    initTask()
     # Call task init function
 
 # Register the custom command group with the Flask application
@@ -96,4 +97,4 @@ app.cli.add_command(custom_cli)
 # this runs the flask application on the development server
 if __name__ == "__main__":
     # change name for testing
-    app.run(debug=True, host="0.0.0.0", port="8086")
+    app.run(debug=True, host="0.0.0.0", port="8094")
